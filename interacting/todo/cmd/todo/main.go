@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"pragprog.com/rggo/interacting/todo"
+	"github.com/pavelanni/pragprog-go-cli-book/interacting/todo"
 )
 
 const todoFileName = ".todo.json"
