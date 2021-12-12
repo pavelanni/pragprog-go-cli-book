@@ -11,3 +11,5 @@ This is an example Markdown file to test the preview tool
 ```
 go get github.com/pavelanni/pragprog-go-cli-book/workingFiles/mdp
 ```
+
+## Another chapter to test
