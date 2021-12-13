@@ -1,1 +1,2 @@
-I am following the Pragmatic Programmer's book "Powerful Command-Line Applications in Go" by Ricardo Gerardi.
+I am following the Pragmatic Programmer's book "Powerful Command-Line Applications in Go" by Ricardo Gerardi:
+https://pragprog.com/titles/rggo/powerful-command-line-applications-in-go/
