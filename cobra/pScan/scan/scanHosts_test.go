@@ -28,7 +28,7 @@ func TestRunHostFound(t *testing.T) {
 		expectState string
 	}{
 		{"OpenPort", "open"},
-		{"ClosePort", "closed"},
+		{"ClosedPort", "closed"},
 	}
 	host := "localhost"
 	hl := &scan.HostsList{}
