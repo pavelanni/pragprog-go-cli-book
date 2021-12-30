@@ -1,4 +1,6 @@
 /*
+Package cmd is part of the Cobra tutorial
+
 Copyright © 2021 Pavel Anni <pavel.anni@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
