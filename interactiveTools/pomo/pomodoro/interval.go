@@ -7,12 +7,20 @@ import (
 	"time"
 )
 
+// CategoryPomodoro is a pomodoro interval
+// CategoryShortBreak is a short break interval
+// CategoryLongBreak is a long break interval
 const (
 	CategoryPomodoro   = "Pomodoro"
 	CategoryShortBreak = "ShortBreak"
 	CategoryLongBreak  = "LongBreak"
 )
 
+// StateNotStarted is a not started state
+// StateRunning is a running state
+// StatePaused is a paused state
+// StateDone is a done state
+// StateCancelled is a cancelled state
 const (
 	StateNotStarted = iota
 	StateRunning
@@ -21,6 +29,7 @@ const (
 	StateCancelled
 )
 
+// Interval contains information about pomodoro intervals
 type Interval struct {
 	ID              int64
 	StartTime       time.Time
@@ -30,6 +39,7 @@ type Interval struct {
 	State           int
 }
 
+// Repository interface implements a data store
 type Repository interface {
 	Create(i Interval) (int64, error)
 	Update(i Interval) error
@@ -38,6 +48,7 @@ type Repository interface {
 	Breaks(n int) ([]Interval, error)
 }
 
+// Err are various errors
 var (
 	ErrNoIntervals        = errors.New("No intervals")
 	ErrIntervalNotRunning = errors.New("Interval not running")
@@ -46,6 +57,7 @@ var (
 	ErrInvalidID          = errors.New("Invalid ID")
 )
 
+// IntervalConfig contains configuration for intervals
 type IntervalConfig struct {
 	repo               Repository
 	PomodoroDuration   time.Duration
@@ -53,6 +65,7 @@ type IntervalConfig struct {
 	LongBreakDuration  time.Duration
 }
 
+// NewConfig creates a new pomodoro configuration
 func NewConfig(repo Repository, pomodoro, shortBreak, longBreak time.Duration) *IntervalConfig {
 	c := &IntervalConfig{
 		repo:               repo,
@@ -105,6 +118,7 @@ func nextCategory(r Repository) (string, error) {
 	return CategoryLongBreak, nil
 }
 
+// Callback is a function type
 type Callback func(Interval)
 
 func tick(ctx context.Context, id int64, config *IntervalConfig, start, periodic, end Callback) error {
@@ -180,6 +194,7 @@ func newInterval(config *IntervalConfig) (Interval, error) {
 	return i, nil
 }
 
+// GetInterval returns an interval
 func GetInterval(config *IntervalConfig) (Interval, error) {
 	i := Interval{}
 	var err error
@@ -196,6 +211,7 @@ func GetInterval(config *IntervalConfig) (Interval, error) {
 	return newInterval(config)
 }
 
+// Start starts an interval
 func (i Interval) Start(ctx context.Context, config *IntervalConfig, start, periodic, end Callback) error {
 
 	switch i.State {
@@ -217,6 +233,7 @@ func (i Interval) Start(ctx context.Context, config *IntervalConfig, start, peri
 	}
 }
 
+// Pause pauses an interval
 func (i Interval) Pause(config *IntervalConfig) error {
 	if i.State != StateRunning {
 		return ErrIntervalNotRunning
